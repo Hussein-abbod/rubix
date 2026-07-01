@@ -1,0 +1,132 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                      String    @id @default(uuid())
+  clerkId                 String?   @unique
+  email                   String    @unique
+  password                String?
+  name                    String
+  avatar                  String?
+  
+  // Integrations
+  googleCalendarConnected Boolean   @default(false)
+  googleRefreshToken      String?   @db.Text
+  googleEmail             String?
+  webexConnected          Boolean   @default(false)
+  webexAccessToken        String?   @db.Text
+  webexRefreshToken       String?   @db.Text
+  webexPersonEmail        String?
+
+  // Preferences
+  emailNotifications      Boolean   @default(true)
+  inAppNotifications      Boolean   @default(true)
+  dailySummary            Boolean   @default(true)
+  deadlineReminders       Boolean   @default(true)
+  overdueAlerts           Boolean   @default(true)
+
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+
+  // Relations
+  projectsOwned           Project[] @relation("ProjectOwner")
+  projectMemberships      ProjectMember[]
+  sectionsAssigned        Section[]
+  notifications           Notification[]
+}
+
+model Project {
+  id               String    @id @default(uuid())
+  name             String
+  description      String?
+  status           String    @default("active") // active, completed, on_hold, archived
+  projectObjective String?   @db.Text
+  expectedOutcomes String?   @db.Text
+  deadline         DateTime?
+  
+  masterDocumentId String?
+  createdById      String
+  createdBy        User      @relation("ProjectOwner", fields: [createdById], references: [id])
+  
+  members          ProjectMember[]
+  documents        Document[]
+  sections         Section[]
+
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model ProjectMember {
+  id        String   @id @default(uuid())
+  role      String   @default("editor") // owner, editor, viewer
+  
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  
+  @@unique([projectId, userId])
+}
+
+model Document {
+  id        String    @id @default(uuid())
+  title     String
+  
+  projectId String
+  project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  sections  Section[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Section {
+  id              String    @id @default(uuid())
+  heading         String
+  content         String?   @db.LongText
+  wordCount       Int       @default(0)
+  pageConstraints String?
+  requirements    String?   @db.Text
+  order           Int       @default(0)
+  status          String    @default("todo") // todo, in_progress, in_review, completed
+  deadline        DateTime?
+  
+  projectId       String
+  project         Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  documentId      String
+  document        Document  @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  
+  assignedTo      String?
+  assignee        User?     @relation(fields: [assignedTo], references: [id], onDelete: SetNull)
+
+  lockedBy        String?
+  lockedAt        DateTime?
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  type      String
+  title     String
+  message   String
+  link      String?
+  read      Boolean  @default(false)
+  
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}
