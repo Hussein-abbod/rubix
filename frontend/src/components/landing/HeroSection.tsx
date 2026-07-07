@@ -40,7 +40,7 @@ export function HeroSection() {
           <div className="grid grid-cols-4 gap-4 mb-4">
             {["Total Projects", "Active", "Completed", "Overdue"].map((label) => (
               <div key={label} className="glass-card rounded-lg p-3 text-center">
-                <div className="text-2xl font-bold text-white mb-1">
+                <div className="text-2xl font-bold text-slate-800 mb-1">
                   {label === "Total Projects" ? "12" : label === "Active" ? "5" : label === "Completed" ? "7" : "0"}
                 </div>
                 <div className="text-xs text-[#94A3B8]">{label}</div>
@@ -51,7 +51,7 @@ export function HeroSection() {
             <div className="flex items-center gap-3 mb-3">
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#cfbcff] to-[#6750a4]" />
               <div>
-                <div className="text-sm font-semibold text-white">CS301 Final Report</div>
+                <div className="text-sm font-semibold text-slate-800">CS301 Final Report</div>
                 <div className="text-xs text-[#94A3B8]">Due in 5 days</div>
               </div>
               <div className="ml-auto flex items-center gap-2">

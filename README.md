@@ -40,10 +40,10 @@ graph TD
 
 ## 📸 App Demo
 
-> **Note:** Create an `assets` folder in the root of your project and save your demo video there (e.g., as `app_demo.gif` or `app_demo.webp`). Then, update the link below to match your filename!
+> **Note:** Create an `assets` folder in the root of your project and save your demo video there as `app_demo.mp4`. 
 
 ### Video Walkthrough
-![App Recording](assets/app_demo.gif)
+<video src="video Demo/app_demo.mp4" controls="controls" muted="muted" width="100%"></video>
 
 ## 🚀 Setup Instructions
 
