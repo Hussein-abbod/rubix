@@ -27,21 +27,9 @@ Modern teams need a centralized hub for their ideas, documents, and workflows. R
 [![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)](https://www.prisma.io/)
 [![Socket.io](https://img.shields.io/badge/Socket.io-010101?style=for-the-badge&logo=socket.io&logoColor=white)](https://socket.io/)
 
-## 🏗️ Architecture Flow
-```mermaid
-graph TD
-    A[React / Vite Frontend] -->|REST API & WebSockets| B(Node / Express Backend)
-    B --> C[(PostgreSQL / MySQL via Prisma)]
-    A -->|State Management| D{Zustand & React Query}
-    B --> E[Socket.io Real-Time Server]
-    E -->|Live Document Updates| A
-    B --> F[Google APIs & Integrations]
-```
+
 
 ## 📸 App Demo
-
-> **Note:** Create an `assets` folder in the root of your project and save your demo video there as `app_demo.mp4`. 
-
 ### Video Walkthrough
 <video src="video Demo/app_demo.mp4" controls="controls" muted="muted" width="100%"></video>
 
