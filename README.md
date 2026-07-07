@@ -38,14 +38,12 @@ graph TD
     B --> F[Google APIs & Integrations]
 ```
 
-## 📸 Screenshots & Demo
+## 📸 App Demo
 
-> **Note:** Create a `screenshots` folder in the root of your project and save your images as `dashboard.jpeg`, `editor.jpeg`, and `integrations.jpeg` to display them below!
+> **Note:** Create an `assets` folder in the root of your project and save your demo video there (e.g., as `app_demo.gif` or `app_demo.webp`). Then, update the link below to match your filename!
 
-| Dashboard | Rich Text Editor | Integrations |
-| :---: | :---: | :---: |
-| <img src="screenshots/dashboard.jpeg" height="300"> | <img src="screenshots/editor.jpeg" height="300"> | <img src="screenshots/integrations.jpeg" height="300"> |
-| *Manage all your workspaces* | *Write and format seamlessly* | *Connect to third-party apps* |
+### Video Walkthrough
+![App Recording](assets/app_demo.gif)
 
 ## 🚀 Setup Instructions
 
