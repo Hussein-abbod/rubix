@@ -31,7 +31,7 @@ Modern teams need a centralized hub for their ideas, documents, and workflows. R
 
 ## 📸 App Demo
 ### Video Walkthrough
-<video src="video Demo/app_demo.mp4" controls="controls" muted="muted" width="100%"></video>
+<video src="video_demo/app_demo.mp4" controls="controls" muted="muted" width="100%"></video>
 
 ## 🚀 Setup Instructions
 
