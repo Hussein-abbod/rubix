@@ -1,19 +1,56 @@
-# Rubix
+# Rubix 🧩✨
 
-This is the Rubix repository containing both the frontend and backend services.
+> **Rubix** is a full-stack, real-time collaborative workspace and document editor. It empowers users to seamlessly create rich-text documents, manage tasks, and integrate with external platforms, all synced instantly across devices.
 
-## Prerequisites
+## 🎯 Problem / Motivation
+Modern teams need a centralized hub for their ideas, documents, and workflows. Rubix aims to bridge the gap between simple note-taking apps and complex project management tools by providing a fast, intuitive, Notion-like editing experience backed by robust real-time synchronization and third-party integrations.
 
-- [Node.js](https://nodejs.org/) (v18 or higher recommended)
-- npm
+## 🌟 Key Features
+- **Rich Text Editing**: A highly customizable Notion-style editor powered by Tiptap, supporting custom image uploads, tables, task lists, and formatting.
+- **Real-Time Collaboration**: Built on WebSockets (`Socket.io`) to allow instantaneous document updates and live syncing across multiple clients.
+- **Third-Party Integrations**: Seamlessly connect with external services using Google APIs and custom integration routes.
+- **Advanced State Management**: Blistering fast frontend performance using Zustand for global state and React Query for server-state caching.
+- **Drag & Drop Interface**: Intuitive block rearrangement and organization using `@hello-pangea/dnd`.
+- **Secure Authentication**: JWT-based authentication with encrypted passwords (bcrypt) and protected API routes.
 
-## Getting Started
+## 🛠️ Tech Stack
 
-Follow these instructions to get the project running locally.
+**Frontend**
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Zustand](https://img.shields.io/badge/Zustand-443E38?style=for-the-badge&logo=react&logoColor=white)](https://zustand-demo.pmnd.rs/)
+
+**Backend & Database**
+[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)](https://www.prisma.io/)
+[![Socket.io](https://img.shields.io/badge/Socket.io-010101?style=for-the-badge&logo=socket.io&logoColor=white)](https://socket.io/)
+
+## 🏗️ Architecture Flow
+```mermaid
+graph TD
+    A[React / Vite Frontend] -->|REST API & WebSockets| B(Node / Express Backend)
+    B --> C[(PostgreSQL / MySQL via Prisma)]
+    A -->|State Management| D{Zustand & React Query}
+    B --> E[Socket.io Real-Time Server]
+    E -->|Live Document Updates| A
+    B --> F[Google APIs & Integrations]
+```
+
+## 📸 Screenshots & Demo
+
+> **Note:** Create a `screenshots` folder in the root of your project and save your images as `dashboard.jpeg`, `editor.jpeg`, and `integrations.jpeg` to display them below!
+
+| Dashboard | Rich Text Editor | Integrations |
+| :---: | :---: | :---: |
+| <img src="screenshots/dashboard.jpeg" height="300"> | <img src="screenshots/editor.jpeg" height="300"> | <img src="screenshots/integrations.jpeg" height="300"> |
+| *Manage all your workspaces* | *Write and format seamlessly* | *Connect to third-party apps* |
+
+## 🚀 Setup Instructions
 
 ### 1. Installation
-
-First, install the dependencies for the root workspace, backend, and frontend:
+Install the dependencies for the root workspace, backend, and frontend:
 
 ```bash
 # Install root dependencies
@@ -31,14 +68,13 @@ cd ..
 ```
 
 ### 2. Environment Setup
-
 You will need to set up the environment variables for both the backend and frontend.
 
 **Backend:**
 ```bash
 cp backend/.env.example backend/.env
 ```
-*(Make sure to update any database credentials or API keys in `backend/.env` if necessary)*
+*(Make sure to update your database connection string and JWT secrets inside `backend/.env`)*
 
 **Frontend:**
 ```bash
@@ -46,7 +82,6 @@ cp frontend/.env.example frontend/.env
 ```
 
 ### 3. Database Setup
-
 The backend uses Prisma ORM. Generate the Prisma client and push the schema to your database:
 
 ```bash
@@ -57,15 +92,24 @@ cd ..
 ```
 
 ### 4. Running the App
-
-You can run both the frontend and backend concurrently from the root directory using a single command:
+Run both the frontend and backend concurrently from the root directory using a single command:
 
 ```bash
 npm run dev
 ```
 
 This will start:
-- Backend API server (usually on port 3000 or 5000 depending on `.env`)
-- Frontend application (usually on port 5173 or 3000)
+- **Backend API & WebSocket server** (usually on port 3000 or 5000)
+- **Frontend Vite application** (usually on port 5173)
 
-Enjoy building Rubix!
+## 🔌 Core Integrations
+Rubix is built to be extensible. Key backend services include:
+- **Authentication**: Secure login/registration flows via `backend/src/middleware/auth.ts`.
+- **Editor Uploads**: Custom file upload handling via `Multer` connected to the Tiptap `CustomImage.tsx` extension.
+- **External Integrations**: OAuth and third-party API syncing managed through `backend/src/routes/integrations.ts` using `googleapis`.
+- **Cron Jobs**: Scheduled background tasks maintained by `node-cron`.
+
+## 🔮 Future Improvements
+- **AI Writing Assistant**: Integrate an LLM to help auto-complete paragraphs, summarize notes, or brainstorm ideas directly inside the editor.
+- **Role-Based Access Control (RBAC)**: Fine-grained permissions for viewing, commenting, or editing specific documents.
+- **Offline Support**: PWA capabilities caching the editor state when internet connection is lost, syncing automatically upon reconnection.
